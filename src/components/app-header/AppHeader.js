@@ -1,4 +1,4 @@
-import { Tabs, Tab } from "@mui/material";
+import { Tabs, Tab, Container } from "@mui/material";
 import { useState } from "react";
 
 const AppHeader = () => {
@@ -10,11 +10,13 @@ const AppHeader = () => {
     };
     
     return (
-        <Tabs sx={{mt: 2}} value={value} onChange={handleChange} centered>
-            <Tab label="All"/>
-            <Tab label="Completed"/>
-            <Tab label="Uncompleted"/>
-        </Tabs>
+        <Container>
+            <Tabs sx={{mt: 2}} value={value} onChange={handleChange} centered>
+                <Tab label="All"/>
+                <Tab label="Completed"/>
+                <Tab label="Uncompleted"/>
+            </Tabs>
+        </Container>
     );
 }
 
