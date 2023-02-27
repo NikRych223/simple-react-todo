@@ -1,7 +1,9 @@
+import { useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import AppHeader from "./components/app-header/AppHeader";
+import AddNewTask from "./components/add-new-task/AddNewTask";
 
 const darkTheme = createTheme({
     palette: {
@@ -10,20 +12,27 @@ const darkTheme = createTheme({
   });
 
 const App = () => {
+
+    const [todoArray, setTodoArray] = useState([]);
+    const [todoID, setTodoID] = useState(1);
+
+    const idIncrement = () => {
+        setTodoID(id => id + 1);
+        return todoID;
+    }
+
+    console.log(todoArray);
+
     return (
         <>
             <ThemeProvider theme={darkTheme}>
-                <BrowserRouter>
-                    <CssBaseline/>
-                    <AppHeader/>
-                    <main>
-                        <Routes>
-                            <Route path="/" element={<h1>Home</h1>}/>
-                            <Route path="/completed" element={<h1>Main</h1>}/>
-                            <Route path="/uncompleted" element={<h1>Base</h1>}/>
-                        </Routes>
-                    </main>
-                </BrowserRouter>
+                <CssBaseline/>
+                <AppHeader/>
+                <AddNewTask setTodoArray={setTodoArray} newID={idIncrement}/>
+
+                <main>
+
+                </main>
             </ThemeProvider>
         </>
     );
