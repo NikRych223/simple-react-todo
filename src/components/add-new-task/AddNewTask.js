@@ -26,7 +26,7 @@ const AddNewTask = (props) => {
     return (
         <Container>
             <div className="add-new-task">
-                <Box sx={{mt: 2, display: "flex", justifyContent: "flex-start", alignItems: "baseline", gap: "2rem"}}>
+                <Box sx={{mt: 2, display: "flex", justifyContent: "center", alignItems: "baseline", gap: "2rem"}}>
                     <Button variant="contained" onClick={addNewItem}>Add</Button>
                     <TextField id="outlined-basic" label="Input your task" variant="outlined" value={inputText} onChange={(e) => setInputText(e.target.value)}/>
                 </Box>
