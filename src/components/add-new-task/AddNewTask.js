@@ -33,6 +33,6 @@ const AddNewTask = (props) => {
             </div>
         </Container>
     );
-}
+};
 
 export default AddNewTask;

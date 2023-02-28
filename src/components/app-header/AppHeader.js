@@ -1,12 +1,19 @@
 import { Tabs, Tab, Container } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const AppHeader = () => {
+const AppHeader = (props) => {
+
+    const { setFilter } = props;
 
     const [value, setValue] = useState(0);
 
+    useEffect(() => {
+        setFilter(value);
+        // eslint-disable-next-line
+    }, [value]);
+
     const handleChange = (event, newValue) => {
-      setValue(newValue);
+        setValue(newValue);
     };
     
     return (
@@ -18,6 +25,6 @@ const AppHeader = () => {
             </Tabs>
         </Container>
     );
-}
+};
 
 export default AppHeader;

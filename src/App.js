@@ -16,6 +16,7 @@ const App = () => {
 
     const [todoArray, setTodoArray] = useState([]);
     const [todoID, setTodoID] = useState(1);
+    const [filter, setFilter] = useState(0);
 
     const idIncrement = () => {
         setTodoID(id => id + 1);
@@ -34,22 +35,43 @@ const App = () => {
         setTodoArray(newData);
     };
 
+    const onRemoveTask = (id) => {
+        const newData = todoArray.filter(item => item.id !== id);
+        setTodoArray(newData);
+    }
+
+    const filteredData = todoArray.filter(item => {
+        if (filter === 0) {
+            return item;
+        }
+
+        if (filter === 1) {
+            return item.completed === true;
+        }
+
+        if (filter === 2) {
+            return item.completed === false;
+        }
+
+        return false;
+    });
+
     console.log(todoArray);
 
     return (
         <>
             <ThemeProvider theme={darkTheme}>
                 <CssBaseline/>
-                <AppHeader/>
+                <AppHeader setFilter={setFilter}/>
 
                 <main>
-                    <AppTodo dataList={todoArray} onTask={onCompleteTask}/>
+                    <AppTodo dataList={filteredData} onTask={onCompleteTask} onRemoveTask={onRemoveTask}/>
                 </main>
 
                 <AddNewTask setTodoArray={setTodoArray} newID={idIncrement}/>
             </ThemeProvider>
         </>
     );
-}
+};
 
 export default App;
