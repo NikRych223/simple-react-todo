@@ -75,16 +75,6 @@ const App = () => {
 
     // console.log("render");
 
-    // useEffect(() => {
-    //     if (todoArray.length >= 0) {
-    //         localStorage.setItem('todoData', JSON.stringify(todoArray));
-    //     }
-
-    //     // if (todoArray.length === 0) {
-    //     //     localStorage.removeItem('todoData');
-    //     // }
-    // }, [todoArray]);
-
     return (
         <>
             <ThemeProvider theme={darkTheme}>
