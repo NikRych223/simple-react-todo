@@ -20,15 +20,23 @@ const App = () => {
     const [todoID, setTodoID] = useState(1);
     const [filter, setFilter] = useState(0);
 
+    useEffect(() => {
+        if (localStorage.getItem('todoData')) {
+            // add from localStorage
+            const newData = JSON.parse(localStorage.getItem('todoData'));
+            setTodoArray(newData);
+
+            // check last ID
+            let lastID = 0;
+            newData.forEach(item => lastID = item.id);
+            setTodoID(lastID + 1);
+        }
+    }, []);
+
     const idIncrement = () => {
         setTodoID(id => id + 1);
         return todoID;
     };
-
-    // const updateLocalStorage = () => {
-    //     localStorage.setItem('todoData', JSON.stringify(todoArray));
-    //     console.log('save')
-    // };
 
     const onCompleteTask = (id) => {
         const newData = todoArray;
@@ -66,14 +74,6 @@ const App = () => {
     });
 
     // console.log("render");
-
-    useEffect(() => {
-        if (localStorage.getItem('todoData')) {
-            const newData = JSON.parse(localStorage.getItem('todoData'));
-            console.log(newData);
-            setTodoArray(newData);
-        }
-    }, []);
 
     // useEffect(() => {
     //     if (todoArray.length >= 0) {
