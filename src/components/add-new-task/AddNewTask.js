@@ -8,6 +8,7 @@ const AddNewTask = (props) => {
 
     const [inputText, setInputText] = useState("");
     const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const addNewItem = () => {
         if (!error) {
@@ -35,10 +36,23 @@ const AddNewTask = (props) => {
         setInputText(value);
 
         const checkNotEmpy = value === null || value === "" || value === " ";
-        const checkLength = value.length < 5 || value.length > 20;
+        // const checkLength = value.length < 5 || value.length > 20;
 
-        if (checkNotEmpy || checkLength) {
+        // if (checkNotEmpy || checkLength) {
+        //     setError(true);
+        // } else {
+        //     setError(false);
+        // }
+
+        if (checkNotEmpy) {
             setError(true);
+            setErrorMessage("Field must not be empty");
+        } else if (value.length < 5) {
+            setError(true);
+            setErrorMessage("Title too short");
+        } else if (value.length > 30) {
+            setError(true);
+            setErrorMessage("Title too long");
         } else {
             setError(false);
         }
@@ -56,7 +70,7 @@ const AddNewTask = (props) => {
                         value={inputText} 
                         onChange={(e) => onHandleChange(e)}
                         error={error ? true : false}
-                        helperText={error ? "Filed is empty" : null}/>
+                        helperText={error ? errorMessage : null}/>
                 </Box>
             </div>
         </Container>
