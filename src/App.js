@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
@@ -56,7 +56,21 @@ const App = () => {
         return false;
     });
 
-    console.log(todoArray);
+    console.log("render");
+
+    useEffect(() => {
+        if (todoArray.length !== 0) {
+            localStorage.setItem('todoData', JSON.stringify(todoArray));
+        }
+    }, [todoArray]);
+
+    useEffect(() => {
+        if (localStorage.getItem('todoData')) {
+            const newData = JSON.parse(localStorage.getItem('todoData'));
+            console.log(newData);
+            setTodoArray(newData);
+        }
+    }, []);
 
     return (
         <>
