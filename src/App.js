@@ -6,6 +6,8 @@ import AppHeader from "./components/app-header/AppHeader";
 import AddNewTask from "./components/add-new-task/AddNewTask";
 import AppTodo from "./components/app-todo/AppTodo";
 
+import { saveInLocalStorage } from "./utils/localStorageTools";
+
 const darkTheme = createTheme({
     palette: {
       mode: 'dark',
@@ -23,6 +25,11 @@ const App = () => {
         return todoID;
     };
 
+    // const updateLocalStorage = () => {
+    //     localStorage.setItem('todoData', JSON.stringify(todoArray));
+    //     console.log('save')
+    // };
+
     const onCompleteTask = (id) => {
         const newData = todoArray;
         
@@ -33,11 +40,13 @@ const App = () => {
         });
 
         setTodoArray(newData);
+        saveInLocalStorage("todoData", newData);
     };
 
     const onRemoveTask = (id) => {
         const newData = todoArray.filter(item => item.id !== id);
         setTodoArray(newData);
+        saveInLocalStorage("todoData", newData);
     }
 
     const filteredData = todoArray.filter(item => {
@@ -56,13 +65,7 @@ const App = () => {
         return false;
     });
 
-    console.log("render");
-
-    useEffect(() => {
-        if (todoArray.length !== 0) {
-            localStorage.setItem('todoData', JSON.stringify(todoArray));
-        }
-    }, [todoArray]);
+    // console.log("render");
 
     useEffect(() => {
         if (localStorage.getItem('todoData')) {
@@ -71,6 +74,16 @@ const App = () => {
             setTodoArray(newData);
         }
     }, []);
+
+    // useEffect(() => {
+    //     if (todoArray.length >= 0) {
+    //         localStorage.setItem('todoData', JSON.stringify(todoArray));
+    //     }
+
+    //     // if (todoArray.length === 0) {
+    //     //     localStorage.removeItem('todoData');
+    //     // }
+    // }, [todoArray]);
 
     return (
         <>
@@ -82,7 +95,7 @@ const App = () => {
                     <AppTodo dataList={filteredData} onTask={onCompleteTask} onRemoveTask={onRemoveTask}/>
                 </main>
 
-                <AddNewTask setTodoArray={setTodoArray} newID={idIncrement}/>
+                <AddNewTask todoArray={todoArray} setTodoArray={setTodoArray} newID={idIncrement}/>
             </ThemeProvider>
         </>
     );

@@ -2,9 +2,11 @@ import { Button, TextField, Box } from "@mui/material";
 import { Container } from "@mui/material";
 import { useState } from "react";
 
+import { saveInLocalStorage } from "../../utils/localStorageTools";
+
 const AddNewTask = (props) => {
 
-    const {setTodoArray, newID} = props;
+    const {setTodoArray, todoArray, newID} = props;
 
     const [inputText, setInputText] = useState("");
     const [error, setError] = useState(false);
@@ -28,6 +30,7 @@ const AddNewTask = (props) => {
             });
     
             setInputText("");
+            saveInLocalStorage("todoData", [...todoArray, newTask]);
         }
     };
 
@@ -36,13 +39,6 @@ const AddNewTask = (props) => {
         setInputText(value);
 
         const checkNotEmpy = value === null || value === "" || value === " ";
-        // const checkLength = value.length < 5 || value.length > 20;
-
-        // if (checkNotEmpy || checkLength) {
-        //     setError(true);
-        // } else {
-        //     setError(false);
-        // }
 
         if (checkNotEmpy) {
             setError(true);
