@@ -19,9 +19,9 @@ const AppHeader = (props) => {
     return (
         <Container>
             <Tabs sx={{mt: 2}} value={value} onChange={handleChange} centered>
-                <Tab label="All"/>
-                <Tab label="Completed"/>
-                <Tab label="Uncompleted"/>
+                <Tab tabIndex={0} label="All"/>
+                <Tab tabIndex={0} label="Completed"/>
+                <Tab tabIndex={0} label="Uncompleted"/>
             </Tabs>
         </Container>
     );
