@@ -5,6 +5,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AppHeader from "./components/app-header/AppHeader";
 import AddNewTask from "./components/add-new-task/AddNewTask";
 import AppTodo from "./components/app-todo/AppTodo";
+import ToDoContext from "./contexts/ToDoContext";
 
 import { saveInLocalStorage } from "./utils/localStorageTools";
 
@@ -79,13 +80,16 @@ const App = () => {
         <>
             <ThemeProvider theme={darkTheme}>
                 <CssBaseline/>
-                <AppHeader setFilter={setFilter}/>
 
-                <main>
-                    <AppTodo dataList={filteredData} onTask={onCompleteTask} onRemoveTask={onRemoveTask}/>
-                </main>
+                <ToDoContext.Provider value={{todoArray, setTodoArray, idIncrement, onCompleteTask, onRemoveTask, setFilter, filteredData}}>
+                    <AppHeader/>
 
-                <AddNewTask todoArray={todoArray} setTodoArray={setTodoArray} newID={idIncrement}/>
+                    <main>
+                        <AppTodo dataList={filteredData} onTask={onCompleteTask} onRemoveTask={onRemoveTask}/>
+                    </main>
+
+                    <AddNewTask/>
+                </ToDoContext.Provider>
             </ThemeProvider>
         </>
     );

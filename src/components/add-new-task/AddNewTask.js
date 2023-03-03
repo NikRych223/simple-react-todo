@@ -1,12 +1,14 @@
 import { Button, TextField, Box } from "@mui/material";
 import { Container } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { saveInLocalStorage } from "../../utils/localStorageTools";
+import ToDoContext from "../../contexts/ToDoContext";
 
 const AddNewTask = (props) => {
 
-    const {setTodoArray, todoArray, newID} = props;
+    // const {setTodoArray, todoArray, idIncrement} = props;
+    const {todoArray, setTodoArray, idIncrement} = useContext(ToDoContext);
 
     const [inputText, setInputText] = useState("");
     const [error, setError] = useState(false);
@@ -20,8 +22,9 @@ const AddNewTask = (props) => {
             }
     
             const newTask = {
-                id: newID(),
+                id: idIncrement(),
                 text: inputText,
+                description: inputText,
                 completed: false
             };
     
