@@ -1,22 +1,25 @@
-import { Container, Box, List, ListItem, ListItemButton, ListItemText, Checkbox, IconButton } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
-import { useEffect, useState } from "react";
+import { Container, Box, List, ListItem } from "@mui/material";
+import { useContext } from "react";
+
+import TodoItem from "../todo-item/TodoItem";
+import ToDoContext from "../../contexts/ToDoContext";
 
 const AppTodo = (props) => {
 
-    const { dataList, onTask, onRemoveTask } = props;
+    const { filteredData } = useContext(ToDoContext);
     
-    const elements = dataList.map((item, i) => {
+    const elements = filteredData.map((item, i) => {
+
+        const { id, text, description, time, completed } = item;
+
         return (
-            <ListItem key={item.id}>
-                <ListItemButton>
-                    {/* <Checkbox key={i} edge="start" onClick={() => onTask(item.id)}/> */}
-                    <ControledCheckBox onTask={onTask} id={item.id} initialCheck={item.completed}/>
-                    <ListItemText primary={item.text}/>
-                    <IconButton edge="end" aria-label="delete" onClick={() => onRemoveTask(item.id)}>
-                        <DeleteIcon/>
-                    </IconButton>
-                </ListItemButton>
+            <ListItem key={id} sx={{display: "flex", flexDirection: "column"}}>
+                <TodoItem 
+                    id={id}
+                    text={text}
+                    description={description}
+                    time={time}
+                    completed={completed}/>
             </ListItem>
         );
     });
@@ -29,24 +32,6 @@ const AppTodo = (props) => {
                 </List>
             </Box>
         </Container>
-    );
-};
-
-const ControledCheckBox = ({onTask, id, initialCheck}) => {
-
-    const [checked, setChecked] = useState(false);
-
-    useEffect(() => {
-        setChecked(initialCheck);
-    }, [initialCheck]);
-
-    const handleClick = () => {
-        setChecked(prev => !prev);
-        onTask(id);
-    };
-
-    return (
-        <Checkbox edge="start" onClick={handleClick} checked={checked}/>
     );
 };
 

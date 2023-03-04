@@ -1,9 +1,11 @@
 import { Tabs, Tab, Container } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+
+import ToDoContext from "../../contexts/ToDoContext";
 
 const AppHeader = (props) => {
 
-    const { setFilter } = props;
+    const { setFilter } = useContext(ToDoContext);
 
     const [value, setValue] = useState(0);
 
