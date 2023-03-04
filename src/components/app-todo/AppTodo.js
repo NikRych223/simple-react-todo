@@ -10,7 +10,7 @@ const AppTodo = (props) => {
     
     const elements = filteredData.map((item, i) => {
 
-        const { id, text, description, completed } = item;
+        const { id, text, description, time, completed } = item;
 
         return (
             <ListItem key={id} sx={{display: "flex", flexDirection: "column"}}>
@@ -18,6 +18,7 @@ const AppTodo = (props) => {
                     id={id}
                     text={text}
                     description={description}
+                    time={time}
                     completed={completed}/>
             </ListItem>
         );
@@ -58,13 +59,13 @@ const ControledCheckBox = ({id, initialCheck}) => {
 
 // ADD DESCRIPTION
 
-const TodoItem = ({id, text, description, completed}) => {
+const TodoItem = ({id, text, description, time, completed}) => {
 
     const { onRemoveTask } = useContext(ToDoContext);
 
     const [descClick, setDescClick] = useState(false);
 
-    const descElement = descClick ? <DescriptionModule description={description}/> : null;
+    const descElement = descClick ? <DescriptionModule description={description} time={time}/> : null;
 
     return (
         <>
@@ -81,10 +82,11 @@ const TodoItem = ({id, text, description, completed}) => {
     );
 };
 
-const DescriptionModule = ({description}) => {
+const DescriptionModule = ({description, time}) => {
     return (
         <Box sx={{mb: 2, mt: 1, width: "80%", height: "100%"}}>
-            <Typography variant="body1">{description}</Typography>
+            <Typography variant="body1">Description: {description}</Typography>
+            <Typography variant="body1">Time: {time}</Typography>
         </Box>
     );
 };
