@@ -2,7 +2,7 @@
 
 It's simple ToDo List built with a framework ReactJS. I used the library MUI(Material UI) for UI my app.
 Currently implemented: adding and removing tasks, task completion mark, filters by completed and unfinished tasks,
-saving tasks in local storage.
+saving tasks in local storage, add a description of the task and the time the task was created.
 
 ### `npm start`
 
